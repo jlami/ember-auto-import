@@ -11,7 +11,6 @@ const debugTree = buildDebugCallback('ember-auto-import');
 const protocol = '__ember_auto_import_protocol_v1__';
 
 export default class AutoImport {
-  private primaryPackage: any;
   private packages: Set<Package> = new Set();
   private env: 'development' | 'test' | 'production';
   private consoleWrite: (msg: string) => void;
@@ -34,7 +33,6 @@ export default class AutoImport {
         : appOrAddon;
     }
 
-    this.primaryPackage = appOrAddon;
     let hostContext = findHostContext(appOrAddon);
     this.packages.add(Package.lookup(hostContext));
     let host = hostContext.app;
@@ -49,7 +47,7 @@ export default class AutoImport {
   }
 
   isPrimary(appOrAddon: any) {
-    return this.primaryPackage === appOrAddon;
+    return appOrAddon.project === appOrAddon.parent;
   }
 
   analyze(tree: Tree, appOrAddon: any) {
@@ -93,7 +91,7 @@ export default class AutoImport {
       for (let type of this.bundles.types) {
         let target = this.bundles.bundleEntrypoint(name, type);
         byType.set(type, target);
-      }
+    }
     }
 
     let passthrough = new Map();
