@@ -38,7 +38,7 @@ export default class AutoImport {
   }
 
   isPrimary(appOrAddon) {
-    return this.primaryPackage === appOrAddon;
+    return appOrAddon.project == appOrAddon.parent;
   }
 
   analyze(tree, appOrAddon) {
