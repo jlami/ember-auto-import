@@ -10,7 +10,7 @@ const debugTree = buildDebugCallback('ember-auto-import');
 const protocol = '__ember_auto_import_protocol_v1__';
 
 export default class AutoImport {
-  private primaryPackage;
+  //private primaryPackage;
   private packages: Set<Package> = new Set();
   private env: string;
   private consoleWrite: (string) => void;
@@ -25,7 +25,7 @@ export default class AutoImport {
   }
 
   constructor(appOrAddon) {
-    this.primaryPackage = appOrAddon;
+    //this.primaryPackage = appOrAddon;
     // _findHost is private API but it's been stable in ember-cli for two years.
     let host = appOrAddon._findHost();
     this.env = host.env;
